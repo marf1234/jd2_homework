@@ -10,6 +10,7 @@
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <dependencies>
@@ -32,21 +33,42 @@
                 <groupId>org.liquibase</groupId>
                 <artifactId>liquibase-maven-plugin</artifactId>
                 <version>4.4.2</version>
-                <configuration>
-                    <propertyFile></propertyFile>
-                </configuration>
                 <executions>
                     <execution>
+                        <id>create_db</id>
+                        <phase>process-resources</phase>
                         <configuration>
-                            <changeLogFile>src/main/resources/changelog-master.xml</changeLogFile>
+                            <changeLogFile>src/main/resources/changelog-expensestable.xml</changeLogFile>
                             <driver>com.mysql.cj.jdbc.Driver</driver>
-                            <url>jdbc:mysql://localhost:3306/parking</url>
+                            <url>jdbc:mysql://localhost:3306/Expensestable?createDatabaseIfNotExist=true</url>
                             <username>root</username>
                             <password>root</password>
                         </configuration>
-                        <phase>process-resources</phase>
                         <goals>
                             <goal>update</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.3.0</version>
+                <configuration>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <archive>
+                        <manifest>
+                            <mainClass>by.academy.it.main.Main</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
                         </goals>
                     </execution>
                 </executions>
