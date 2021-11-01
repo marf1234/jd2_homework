@@ -8,29 +8,43 @@ public class DataAccessObject {
 
     private DataSource dataSource = new DataSource();
 
-    public void addingDataToExpensesTable(String num, String date, String receiver, String value) throws SQLException {
+    public void addingDataToExpensesTable() throws SQLException {
 
         Connection connection = dataSource.getConnection();
-        String template = "INSERT INTO expenses (paydate, receiver, value) VALUES (?, ?, ?, ?);";
-        PreparedStatement preparedStatement = connection.prepareStatement(template);
-        preparedStatement.setString(1, num);
-        preparedStatement.setString(2, date);
-        preparedStatement.setString(3, receiver);
-        preparedStatement.setString(4, value);
+        String template =
+                "SELECT name, SUM(value) AS sum " +
+                        "FROM receivers r, expenses " +
+                        "WHERE receiver = r.num " +
+                        "GROUP BY name";
+        ;
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(template);
+        while (resultSet.next()) {
+            System.out.println("|  " + resultSet.getString("name") + "  |  "
+                    + resultSet.getString("sum"));
+
+        }
+
 
     }
 
     public void outputTable() throws SQLException {
         Connection connection = dataSource.getConnection();
         Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery("SELECT paydate, value, name FROM expenses, " +
-                "receivers WHERE receiver=receivers.num;");
+        String template = "SELECT paydate, SUM(value) as sum " +
+                "FROM expenses " +
+                "WHERE paydate IN (" +
+                "SELECT paydate " +
+                "FROM expenses " +
+                "WHERE value = (" +
+                "SELECT MAX(value) " +
+                "FROM expenses)) " +
+                "GROUP BY paydate;";
 
+        ResultSet resultSet = statement.executeQuery(template);
         while (resultSet.next()) {
-            System.out.println("| "
-                    + resultSet.getDate("paydate") + " | "
-                    + resultSet.getInt("value") + " | "
-                    + resultSet.getString("name") + " | "
+            System.out.println("| " + resultSet.getString("paydate") + " | "
+                    + resultSet.getString("sum") + " | "
             );
         }
 
