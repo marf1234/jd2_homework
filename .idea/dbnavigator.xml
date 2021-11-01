@@ -24,12 +24,7 @@
     <autoscroll-to-editor value="false" />
     <autoscroll-from-editor value="true" />
     <show-object-properties value="true" />
-    <loaded-nodes>
-      <connection connection-id="cc1534a5-da5d-40cc-b94b-9c9c9099e336">
-        <schema name="expensestable" object-types="table, view, procedure, function" />
-        <schema name="parking" object-types="table, view, function" />
-      </connection>
-    </loaded-nodes>
+    <loaded-nodes />
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="cc1534a5-da5d-40cc-b94b-9c9c9099e336">
@@ -54,9 +49,7 @@ select value from exspenses where num =1]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
-    <open-files>
-      <object connection-id="cc1534a5-da5d-40cc-b94b-9c9c9099e336" object-ref="consoles/Connection" />
-    </open-files>
+    <open-files />
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
     <connection id="cc1534a5-da5d-40cc-b94b-9c9c9099e336" />

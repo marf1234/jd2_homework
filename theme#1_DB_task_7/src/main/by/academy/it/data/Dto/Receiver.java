@@ -1,4 +1,4 @@
-package src.main.by.academy.it.data;
+package src.main.by.academy.it.data.Dto;
 
 public class Receiver {
     private int num;

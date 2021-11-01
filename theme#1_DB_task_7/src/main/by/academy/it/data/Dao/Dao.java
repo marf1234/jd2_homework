@@ -1,6 +1,9 @@
-package src.main.by.academy.it.data;
+package src.main.by.academy.it.data.Dao;
 
 
+
+import src.main.by.academy.it.data.Dto.Expense;
+import src.main.by.academy.it.data.Dto.Receiver;
 
 import java.sql.SQLException;
 import java.util.ArrayList;

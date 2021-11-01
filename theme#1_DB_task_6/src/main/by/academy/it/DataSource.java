@@ -1,4 +1,4 @@
-package src.main.by.academy.it.data;
+package src.main.by.academy.it;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -15,7 +15,7 @@ public class DataSource {
         }
     }
 
-    public Connection getConnection() throws SQLException {
+    protected Connection getConnection() throws SQLException {
         return DriverManager.getConnection("jdbc:mysql://localhost:3306/expensestable",
                 "root",
                 "root");
